@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+
+    <!-- Target Windows so Windows-only APIs (and MSG writer behavior) are available -->
+    <TargetFramework>net8.0-windows</TargetFramework>
+
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- Limilabs redistributables -->
+  <ItemGroup>
+   
+    <Reference Include="Mail"><HintPath>libs\Mail.dll</HintPath></Reference>
+    <Reference Include="Limilabs.Proxy"><HintPath>libs\Limilabs.Proxy.dll</HintPath></Reference>
+    <Reference Include="ProtocolEx"><HintPath>libs\ProtocolEx.dll</HintPath></Reference>
+    <Reference Include="MailBrowserControl"><HintPath>libs\MailBrowserControl.dll</HintPath></Reference>
+
+  </ItemGroup>
+
+  <!-- Pin exact versions so MSBuild doesn't unify to older ones -->
+  <ItemGroup>
+    <!-- This is the package the warning is about: make 9.0.0.7 authoritative -->
+    <PackageReference Include="Microsoft.Bcl.Cryptography" Version="9.0.0.7" />
+    <PackageReference Include="MimeKit" Version="4.14.0" />
+    <PackageReference Include="MsgKit" Version="3.0.2" />
+
+    <!-- Keep Xml crypto aligned with Bcl.Cryptography (same 9.0.0.7 build) -->
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.0.7" />
+
+    <!-- Code pages provider for Windows-1252/other legacy encodings -->
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.0" />
+
+    <!-- Often not needed; keep only if you hit type-init issues; you can remove later -->
+    <PackageReference Include="System.Security.Permissions" Version="9.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
+  </ItemGroup>
+
+  <!-- (Optional but robust) Force any transitive reference to use these exact versions -->
+  <ItemGroup>
+    <PackageReference Update="Microsoft.Bcl.Cryptography" Version="9.0.0.7" />
+    <PackageReference Update="System.Security.Cryptography.Xml" Version="9.0.0.7" />
+  </ItemGroup>
+
+</Project>
